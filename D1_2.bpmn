@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="D1_2" name="D1_2" isExecutable="true">
+    <startEvent id="startevent1" name="Start" activiti:initiator="kermit"></startEvent>
+    <scriptTask id="scripttask3" name="patient entrance " scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>out:println "o asthenis exei id: $epatient_id, onoma: $epatient_name  kai epitheto: $epatient_surname"</script>
+    </scriptTask>
+    <userTask id="usertask4" name="patient data recording" activiti:assignee="kermit">
+      <extensionElements>
+        <activiti:formProperty id="epatient_name" name="Onoma asthenous" type="string" expression="${patient_name}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="epatient_surname" name="Epitheto asthenous" type="string" expression="${patient_surname}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="epatient_id" name="kwdikos asthenous" type="string" expression="${patient_id}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="receipt" name="ekdosi apodiksis" type="enum" required="true">
+          <activiti:value id="receipt" name="ekdosi apodiksis"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask4"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="usertask4" targetRef="scripttask3"></sequenceFlow>
+    <sequenceFlow id="flow3" sourceRef="scripttask3" targetRef="endevent1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_D1_2">
+    <bpmndi:BPMNPlane bpmnElement="D1_2" id="BPMNPlane_D1_2">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="150.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask3" id="BPMNShape_scripttask3">
+        <omgdc:Bounds height="71.0" width="115.0" x="430.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
+        <omgdc:Bounds height="71.0" width="121.0" x="280.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="577.0" y="108.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="185.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="280.0" y="125.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="401.0" y="125.0"></omgdi:waypoint>
+        <omgdi:waypoint x="430.0" y="125.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="545.0" y="125.0"></omgdi:waypoint>
+        <omgdi:waypoint x="577.0" y="125.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
