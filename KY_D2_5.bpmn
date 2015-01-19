@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" activiti:candidateStarterGroups="nosileutis" targetNamespace="http://www.activiti.org/test">
+  <process id="KY_D2_5" name="KY_D2_5" isExecutable="true">
+    <startEvent id="startevent1" name="Start"></startEvent>
+    <userTask id="usertask2" name="Αξιολόγηση αναφοράς" activiti:candidateGroups="dioikisi">
+      <extensionElements>
+        <activiti:formProperty id="perigrafi_xristi" name="ΠΕΡΙΓΡΑΦΗ ΠΡΟΒΛΗΜΑΤΟΣ" type="string" expression="${perigrafi}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_anaferomenou" name="ΟΝΟΠΑΤΕΠΩΝΥΜΟ ΧΡΗΣΤΗ" type="string" expression="${stoixeia_xristi}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="deltio_anaggelias" name="ΑΠΑΙΤΗΣΗ ΕΠΙΣΚΕΥΗΣ/ΣΥΝΤΗΡΗΣΗΣ/ΚΑΤΑΣΚΕΥΗΣ" type="enum" required="true">
+          <activiti:value id="vlavi" name="ΑΝΑΓΓΕΛΙΑ ΒΛΑΒΗΣ"></activiti:value>
+          <activiti:value id="suntirisi" name="ΑΝΑΓΓΕΛΙΑ ΣΥΝΤΗΡΗΣΗΣ"></activiti:value>
+          <activiti:value id="kataskeui" name="ΑΝΑΓΓΕΛΙΑ ΚΑΤΑΣΚΕΥΗΣ"></activiti:value>
+          <activiti:value id="aporipsi" name="ΑΠΟΡΙΨΗ ΑΙΤΗΜΑΤΟΣ"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <userTask id="usertask9" name="Συμπλήρωση Δελτίου Αναγγελίας " activiti:candidateGroups="dioikisi">
+      <extensionElements>
+        <activiti:formProperty id="tmima" name="ΤΜΗΜΑ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="eidos_provlimatos" name="ΕΙΔΟΣ ΠΡΟΒΛΗΜΑΤΟΣ" type="enum" expression="${deltio_anaggelias}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="perigrafi_upeuthunou" name="ΠΕΡΙΓΡΑΦΗ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΧΡΗΣΤΗ" type="string" expression="${stoixeia_xristi}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="pros" name="ΑΠΟΣΤΟΛΗ ΔΕΛΤΙΟΥ ΠΡΟΣ" type="enum" required="true">
+          <activiti:value id="ilektronikoi" name="ΤΜΗΜΑ ΒΙΟΪΑΤΡΙΚΗΣ ΤΕΧΝΟΛΟΓΙΑΣ"></activiti:value>
+          <activiti:value id="sunergeia" name="ΤΕΧΝΙΚΑ ΣΥΝΕΡΓΕΙΑ"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <endEvent id="endevent6" name="End"></endEvent>
+    <endEvent id="endevent7" name="End"></endEvent>
+    <exclusiveGateway id="exclusivegateway4" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow25" sourceRef="usertask2" targetRef="exclusivegateway4"></sequenceFlow>
+    <sequenceFlow id="flow26" sourceRef="exclusivegateway4" targetRef="endevent7">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${deltio_anaggelias == 'aporipsi'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow27" sourceRef="exclusivegateway4" targetRef="usertask9">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ (deltio_anaggelias == 'vlavi' ) || ( deltio_anaggelias ==  'suntirisi' ) || (deltio_anaggelias ==  'kataskeui' )}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="usertask20" name="Ενημέρωση για βλάβη / συντήρηση / κατασκευή" activiti:candidateGroups="nosileutis">
+      <extensionElements>
+        <activiti:formProperty id="perigrafi" name="ΠΕΡΙΓΡΑΦΗ ΒΛΑΒΗΣ/ΣΥΝΤΗΡΗΣΗΣ/ΚΑΤΑΣΚΕΥΗΣ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_xristi" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΧΡΗΣΤΗ" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow40" sourceRef="startevent1" targetRef="usertask20"></sequenceFlow>
+    <sequenceFlow id="flow41" sourceRef="usertask20" targetRef="usertask2"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway5" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow42" sourceRef="usertask9" targetRef="exclusivegateway5"></sequenceFlow>
+    <userTask id="usertask21" name="Τμήμα Βιοϊατρικής Τεχνολογίας" activiti:candidateGroups="ilektronikos">
+      <extensionElements>
+        <activiti:formProperty id="tmima_H0" name="ΔΕΛΤΙΟ ΑΝΑΓΓΕΛΙΑΣ ΑΠΟ ΤΟ ΤΜΗΜΑ" type="string" expression="${tmima}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eidos_provlimatos_H0" name="ΕΙΔΟΣ ΠΡΟΒΛΗΜΑΤΟΣ" type="enum" expression="${deltio_anaggelias}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="perigrafi_upeuthunou_H0" name="ΠΕΡΙΓΡΑΦΗ" type="string" expression="${perigrafi_upeuthunou}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_H0" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΧΡΗΣΤΗ" type="string" expression="${stoixeia_xristi}" writable="false"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow43" sourceRef="exclusivegateway5" targetRef="usertask23">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${pros == 'sunergeia'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow44" sourceRef="exclusivegateway5" targetRef="usertask21">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${pros == 'ilektronikoi'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="usertask23" name="Tεχνικά Συνεργεία" activiti:candidateGroups="texnikos">
+      <extensionElements>
+        <activiti:formProperty id="tmima_S" name="ΔΕΛΤΙΟ ΑΝΑΓΓΕΛΙΑΣ ΑΠΟ ΤΟ ΤΜΗΜΑ" type="string" expression="${tmima}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eidos_provlimatos_S" name="ΕΙΔΟΣ ΠΡΟΒΛΗΜΑΤΟΣ" type="enum" expression="${deltio_anaggelias}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="perigrafi_upeuthunou_S" name="ΠΕΡΙΓΡΑΦΗ" type="string" expression="${perigrafi_upeuthunou}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_S" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΧΡΗΣΤΗ" type="string" expression="${stoixeia_xristi}" writable="false"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <userTask id="usertask24" name="Μετάβαση τεχνικού στο τμήμα" activiti:candidateGroups="ilektronikos">
+      <extensionElements>
+        <activiti:formProperty id="tmima_H" name="ΔΕΛΤΙΟ ΑΝΑΓΓΕΛΙΑΣ ΑΠΟ ΤΟ ΤΜΗΜΑ" type="string" expression="${tmima}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eidos_provlimatos_H" name="ΕΙΔΟΣ ΠΡΟΒΛΗΜΑΤΟΣ" type="enum" expression="${deltio_anaggelias}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="perigrafi_upeuthunou_H" name="ΠΕΡΙΓΡΑΦΗ" type="string" expression="${perigrafi_upeuthunou}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_H" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΧΡΗΣΤΗ" type="string" expression="${stoixeia_xristi}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_paradosis_Η" name="ΗΜΕΡΟΜΗΝΙΑ ΠΑΡΑΔΟΣΗΣ" type="date" datePattern="dd-MMM-yyyy" required="true"></activiti:formProperty>
+        <activiti:formProperty id="wra_paradosis_Η" name="ΩΡΑ ΠΑΡΑΔΟΣΗΣ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_texnikou_Η" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΤΕΧΝΙΚΟΥ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="paratiriseis_H" name="ΠΑΡΑΤΗΡΗΣΕΙΣ ΤΕΧΝΙΚΟΥ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="pros_etairia" name="ΑΠΟΣΤΟΛΗ ΣΤΗΝ ΚΑΤΑΣΚΕΥΑΣΤΡΙΑ ΕΤΑΙΡΙΑ" type="enum" required="true">
+          <activiti:value id="positive" name="ΝΑΙ"></activiti:value>
+          <activiti:value id="negative" name="ΟΧΙ"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow45" sourceRef="usertask21" targetRef="usertask24"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway6" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow46" sourceRef="usertask24" targetRef="exclusivegateway6"></sequenceFlow>
+    <userTask id="usertask27" name="Αποστολή στην Εταιρία" activiti:candidateGroups="ilektronikos">
+      <extensionElements>
+        <activiti:formProperty id="paratiriseis_H4" name="ΠΑΡΑΤΗΡΗΣΕΙΣ ΤΕΧΝΙΚΟΥ" type="string" expression="${paratiriseis_H}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_paralavis_H4" name="ΗΜΕΡΟΜΗΝΙΑ ΠΑΡΑΛΑΒΗΣ ΑΠΟ ΤΗ ΔΙΑΧΕΙΡΙΣΗ" type="date" datePattern="dd-MMM-yyyy" required="true"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_H4" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΥΠΕΥΘΥΝΟΥ ΓΡΑΦΕΙΟΥ ΔΙΑΧΕΙΡΙΣΗΣ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_apostolis_H4" name="ΗΜΕΡΟΜΗΝΙΑ ΑΠΟΣΤΟΛΗΣ ΣΤΗΝ ΕΤΑΙΡΙΑ" type="date" datePattern="dd-MMM-yyyy" required="true"></activiti:formProperty>
+        <activiti:formProperty id="arithmos_diataktikis_Η4" name="ΑΡΙΘΜΟΣ ΔΙΑΤΑΚΤΙΚΗΣ" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow49" sourceRef="exclusivegateway6" targetRef="usertask27">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${pros_etairia == 'positive'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="usertask34" name="Επισκευή / Συντήρηση" activiti:candidateGroups="ilektronikos">
+      <extensionElements>
+        <activiti:formProperty id="tmima_H1" name="ΔΕΛΤΙΟ ΑΝΑΓΓΕΛΙΑΣ ΑΠΟ ΤΟ ΤΜΗΜΑ" type="string" expression="${tmima}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eidos_provlimatos_H1" name="ΕΙΔΟΣ ΠΡΟΒΛΗΜΑΤΟΣ" type="enum" expression="${deltio_anaggelias}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="perigrafi_upeuthunou_H1" name="ΠΕΡΙΓΡΑΦΗ" type="string" expression="${perigrafi_upeuthunou}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_H1" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΧΡΗΣΤΗ" type="string" expression="${stoixeia_xristi}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_paradosis_Η1" name="ΗΜΕΡΟΜΗΝΙΑ ΠΑΡΑΔΟΣΗΣ" type="date" expression="${imerominia_paradosis_H}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="wra_paradosis_Η1" name="ΩΡΑ ΠΑΡΑΔΟΣΗΣ" type="string" expression="${wra_paradosis_Η}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_texnikou_Η1" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΤΕΧΝΙΚΟΥ" type="string" expression="${stoixeia_texnikou_Η}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="paratiriseis_H1" name="ΠΑΡΑΤΗΡΗΣΕΙΣ ΤΕΧΝΙΚΟΥ" type="string" expression="${paratiriseis_H}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kostos_H1" name="ΚΟΣΤΟΣ ΕΠΙΣΚΕΥΗΣ-ΚΑΤΑΣΚΕΥΗΣ" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <userTask id="usertask35" name="Παράδοση στο τμήμα" activiti:candidateGroups="ilektronikos">
+      <extensionElements>
+        <activiti:formProperty id="tmima_H2" name="ΔΕΛΤΙΟ ΑΝΑΓΓΕΛΙΑΣ ΑΠΟ ΤΟ ΤΜΗΜΑ" type="string" expression="${tmima}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eidos_provlimatos_H2" name="ΕΙΔΟΣ ΠΡΟΒΛΗΜΑΤΟΣ" type="enum" expression="${deltio_anaggelias}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="perigrafi_upeuthunou_H2" name="ΠΕΡΙΓΡΑΦΗ" type="string" expression="${perigrafi_upeuthunou}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_H2" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΧΡΗΣΤΗ" type="string" expression="${stoixeia_xristi}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_paradosis_Η2" name="ΗΜΕΡΟΜΗΝΙΑ ΠΑΡΑΔΟΣΗΣ" type="date" expression="${imerominia_paradosis_H}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="wra_paradosis_Η2" name="ΩΡΑ ΠΑΡΑΔΟΣΗΣ" type="string" expression="${wra_paradosis_Η}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_texnikou_Η2" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΤΕΧΝΙΚΟΥ" type="string" expression="${stoixeia_texnikou_Η}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="paratiriseis_H2" name="ΠΑΡΑΤΗΡΗΣΕΙΣ ΤΕΧΝΙΚΟΥ" type="string" expression="${paratiriseis_H}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kostos_H2" name="ΚΟΣΤΟΣ ΕΠΙΣΚΕΥΗΣ-ΚΑΤΑΣΚΕΥΗΣ" type="string" expression="${kostos_H1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_epistrofis_H2" name="ΗΜΕΡΟΜΗΝΙΑ ΕΠΙΣΤΡΟΦΗΣ" type="date" datePattern="dd-MMM-yyyy" required="true"></activiti:formProperty>
+        <activiti:formProperty id="wra_epistrofis_H2" name="ΩΡΑ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="onomatepwnumo_xristi_H2" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΧΡΗΣΤΗ" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow58" sourceRef="usertask34" targetRef="usertask35"></sequenceFlow>
+    <userTask id="usertask38" name="Αρχειοθέτηση" activiti:candidateGroups="dioikisi">
+      <extensionElements>
+        <activiti:formProperty id="tmima_H3" name="ΔΕΛΤΙΟ ΑΝΑΓΓΕΛΙΑΣ ΑΠΟ ΤΟ ΤΜΗΜΑ" type="string" expression="${tmima}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eidos_provlimatos_H3" name="ΕΙΔΟΣ ΠΡΟΒΛΗΜΑΤΟΣ" type="enum" expression="${deltio_anaggelias}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="perigrafi_upeuthunou_H3" name="ΠΕΡΙΓΡΑΦΗ" type="string" expression="${perigrafi_upeuthunou}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_H3" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΧΡΗΣΤΗ" type="string" expression="${stoixeia_xristi}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_paradosis_Η3" name="ΗΜΕΡΟΜΗΝΙΑ ΠΑΡΑΔΟΣΗΣ" type="date" expression="${imerominia_paradosis_H}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="wra_paradosis_Η3" name="ΩΡΑ ΠΑΡΑΔΟΣΗΣ" type="string" expression="${wra_paradosis_H}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_texnikou_Η3" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΤΕΧΝΙΚΟΥ" type="string" expression="${stoixeia_texnikou_Η}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="paratiriseis_H3" name="ΠΑΡΑΤΗΡΗΣΕΙΣ ΤΕΧΝΙΚΟΥ" type="string" expression="${paratiriseis_H}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kostos_H3" name="ΚΟΣΤΟΣ ΕΠΙΣΚΕΥΗΣ-ΚΑΤΑΣΚΕΥΗΣ" type="string" expression="${kostos_H1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_epistrofis_H3" name="ΗΜΕΡΟΜΗΝΙΑ ΕΠΙΣΤΡΟΦΗΣ" type="date" expression="${imerominia_epistrofis_H2}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="wra_epistrofis_H3" name="ΩΡΑ" type="string" expression="${wra_epistrofis_H2}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="onomatepwnumo_xristi_H3" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΧΡΗΣΤΗ" type="string" expression="${onomatepwnumo_xristi_H2}" writable="false"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow61" sourceRef="usertask35" targetRef="usertask38"></sequenceFlow>
+    <endEvent id="endevent9" name="End"></endEvent>
+    <sequenceFlow id="flow62" sourceRef="usertask38" targetRef="endevent9"></sequenceFlow>
+    <userTask id="usertask39" name="Επιστροφή από την Εταιρία" activiti:candidateGroups="ilektronikos">
+      <extensionElements>
+        <activiti:formProperty id="paratiriseis_H5" name="ΠΑΡΑΤΗΡΗΣΕΙΣ ΤΕΧΝΙΚΟΥ" type="string" expression="${paratiriseis_H}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_paralavis_H5" name="ΗΜΕΡΟΜΗΝΙΑ ΠΑΡΑΛΑΒΗΣ ΑΠΟ ΤΗ ΔΙΑΧΕΙΡΙΣΗ" type="date" expression="${imerominia_paralavis_H4}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_H5" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΥΠΕΥΘΥΝΟΥ ΓΡΑΦΕΙΟΥ ΔΙΑΧΕΙΡΙΣΗΣ" type="string" expression="${stoixeia_H4}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_apostolis_H5" name="ΗΜΕΡΟΜΗΝΙΑ ΑΠΟΣΤΟΛΗΣ ΣΤΗΝ ΕΤΑΙΡΙΑ" type="date" expression="${imerominia_apostolis_H4}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="arithmos_diataktikis_Η5" name="ΑΡΙΘΜΟΣ ΔΙΑΤΑΚΤΙΚΗΣ" type="string" expression="${arithmos_diataktikis_Η4}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_epistrofis_etairia_H5" name="ΗΜΕΡΟΜΗΝΙΑ ΕΠΙΣΤΡΟΦΗΣ ΑΠΟ ΤΗΝ ΕΤΑΙΡΙΑ" type="date" datePattern="dd-MMM-yyyy" required="true"></activiti:formProperty>
+        <activiti:formProperty id="paratiriseis_etairias_H5" name="ΠΑΡΑΤΗΡΗΣΕΙΣ ΕΤΑΙΡΙΑΣ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="kostos_H5" name="ΚΟΣΤΟΣ ΕΠΙΣΚΕΥΗΣ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="arithmos_timologiou_H5" name="ΑΡΙΘΜΟΣ ΤΙΜΟΛΟΓΙΟ" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow63" sourceRef="usertask27" targetRef="usertask39"></sequenceFlow>
+    <userTask id="usertask40" name="Παράδοση στο τμήμα" activiti:candidateGroups="ilektronikos">
+      <extensionElements>
+        <activiti:formProperty id="tmima_H6" name="ΔΕΛΤΙΟ ΑΝΑΓΓΕΛΙΑΣ ΑΠΟ ΤΟ TMHMA" type="string" expression="${tmima}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eidos_provlimatos_H6" name="ΕΙΔΟΣ ΠΡΟΒΛΗΜΑΤΟΣ" type="enum" expression="${deltio_anaggelias}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="perigrafi_upeuthunou_H6" name="ΠΕΡΙΓΡΑΦΗ" type="string" expression="${perigrafi_upeuthunou}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_H6b" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΧΡΗΣΤΗ" type="string" expression="${stoixeia_xristi}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_paradosis_H6" name="ΗΜΕΡΟΜΗΝΙΑ ΠΑΡΑΔΟΣΗΣ" type="date" expression="${imerominia_paradosis_H}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="wra_paradosis_H6" name="ΩΡΑ ΠΑΡΑΔΟΣΗΣ" type="string" expression="${wra_paradosis_H}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_texnikou_H6" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΤΕΧΝΙΚΟΥ" type="string" expression="${stoixeia_texnikou_H}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="paratiriseis_H6" name="ΠΑΡΑΤΗΡΗΣΕΙΣ ΤΕΧΝΙΚΟΥ" type="string" expression="${paratiriseis_H}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_H6" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΥΠΕΥΘΥΝΟΥ ΓΡΑΦΕΙΟΥ ΔΙΑΧΕΙΡΙΣΗΣ" type="string" expression="${stoixeia_H4}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_paralavis_H6" name="ΗΜΕΡΟΜΗΝΙΑ ΠΑΡΑΛΑΒΗΣ ΑΠΟ ΤΗ ΔΙΑΧΕΙΡΙΣΗ" type="date" expression="${imerominia_paralavis_H4}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_apostolis_H6" name="ΗΜΕΡΟΜΗΝΙΑ ΑΠΟΣΤΟΛΗΣ ΣΤΗΝ ΕΤΑΙΡΙΑ" type="date" expression="${imerominia_apostolis_H4}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="arithmos_diataktikis_Η6" name="ΑΡΙΘΜΟΣ ΔΙΑΤΑΚΤΙΚΗΣ" type="string" expression="${arithmos_diataktikis_Η4}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_epistrofis_etairia_H6" name="ΗΜΕΡΟΜΗΝΙΑ ΕΠΙΣΤΡΟΦΗΣ ΑΠΟ ΤΗΝ ΕΤΑΙΡΙΑ" type="date" expression="${imerominia_epistrofis_etairia_H5}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="paratiriseis_etairias_H6" name="ΠΑΡΑΤΗΡΗΣΕΙΣ ΕΤΑΙΡΙΑΣ" type="string" expression="${paratiriseis_etairias_H5}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kostos_H6" name="ΚΟΣΤΟΣ ΕΠΙΣΚΕΥΗΣ" type="string" expression="${kostos_H5}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="arithmos_timologiou_H6" name="ΑΡΙΘΜΟΣ ΤΙΜΟΛΟΓΙΟ" type="string" expression="${arithmos_timologiou_H5}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_paradosis_H6b" name="ΗΜΕΡΟΜΗΝΙΑ ΠΑΡΑΔΟΣΗΣ" type="date" datePattern="dd-MMM-yyyy" required="true"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_texnikou_H6b" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΤΕΧΝΙΚΟΥ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_xristi_H6" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΧΡΗΣΤΗ" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow64" sourceRef="usertask39" targetRef="usertask40"></sequenceFlow>
+    <userTask id="usertask41" name="Αρχειοθέτηση" activiti:candidateGroups="dioikisi">
+      <extensionElements>
+        <activiti:formProperty id="tmima_H7" name="ΔΕΛΤΙΟ ΑΝΑΓΓΕΛΙΑΣ ΑΠΟ ΤΟ TMHMA" type="string" expression="${tmima}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eidos_provlimatos_H7" name="ΕΙΔΟΣ ΠΡΟΒΛΗΜΑΤΟΣ" type="enum" expression="${deltio_anaggelias}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="perigrafi_upeuthunou_H7" name="ΠΕΡΙΓΡΑΦΗ" type="string" expression="${perigrafi_upeuthunou}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_H7b" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΧΡΗΣΤΗ" type="string" expression="${stoixeia_xristi}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_paradosis_H7" name="ΗΜΕΡΟΜΗΝΙΑ ΠΑΡΑΔΟΣΗΣ" type="date" expression="${imerominia_paradosis_H}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="wra_paradosis_H7" name="ΩΡΑ ΠΑΡΑΔΟΣΗΣ" type="string" expression="${wra_paradosis_H}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_texnikou_H7" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΤΕΧΝΙΚΟΥ" type="string" expression="${stoixeia_texnikou_H}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="paratiriseis_H7" name="ΠΑΡΑΤΗΡΗΣΕΙΣ ΤΕΧΝΙΚΟΥ" type="string" expression="${paratiriseis_H}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_H7" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΥΠΕΥΘΥΝΟΥ ΓΡΑΦΕΙΟΥ ΔΙΑΧΕΙΡΙΣΗΣ" type="string" expression="${stoixeia_H4}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_paralavis_H7" name="ΗΜΕΡΟΜΗΝΙΑ ΠΑΡΑΛΑΒΗΣ ΑΠΟ ΤΗ ΔΙΑΧΕΙΡΙΣΗ" type="date" expression="${imerominia_paralavis_H4}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_apostolis_H7" name="ΗΜΕΡΟΜΗΝΙΑ ΑΠΟΣΤΟΛΗΣ ΣΤΗΝ ΕΤΑΙΡΙΑ" type="date" expression="${imerominia_apostolis_H4}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="arithmos_diataktikis_Η7" name="ΑΡΙΘΜΟΣ ΔΙΑΤΑΚΤΙΚΗΣ" type="string" expression="${arithmos_diataktikis_Η4}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_epistrofis_etairia_H7" name="ΗΜΕΡΟΜΗΝΙΑ ΕΠΙΣΤΡΟΦΗΣ ΑΠΟ ΤΗΝ ΕΤΑΙΡΙΑ" type="date" expression="${imerominia_epistrofis_etairia_H5}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="paratiriseis_etairias_H7" name="ΠΑΡΑΤΗΡΗΣΕΙΣ ΕΤΑΙΡΙΑΣ" type="string" expression="${paratiriseis_etairias_H5}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kostos_H7" name="ΚΟΣΤΟΣ ΕΠΙΣΚΕΥΗΣ" type="string" expression="${kostos_H5}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="arithmos_timologiou_H7" name="ΑΡΙΘΜΟΣ ΤΙΜΟΛΟΓΙΟ" type="string" expression="${arithmos_timologiou_H5}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_paradosis_H7b" name="ΗΜΕΡΟΜΗΝΙΑ ΠΑΡΑΔΟΣΗΣ" type="date" expression="${imerominia_paradosis_H6b}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_texnikou_H7b" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΤΕΧΝΙΚΟΥ" type="string" expression="${stoixeia_texnikou_H6b}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_xristi_H7" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΧΡΗΣΤΗ" type="string" expression="${stoixeia_xristi_H6}" writable="false"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow65" sourceRef="usertask40" targetRef="usertask41"></sequenceFlow>
+    <endEvent id="endevent10" name="End"></endEvent>
+    <sequenceFlow id="flow66" sourceRef="usertask41" targetRef="endevent10"></sequenceFlow>
+    <userTask id="usertask42" name="Μετάβαση συνεργείου στο τμήμα" activiti:candidateGroups="texnikos">
+      <extensionElements>
+        <activiti:formProperty id="tmima_S1" name="ΔΕΛΤΙΟ ΑΝΑΓΓΕΛΙΑΣ ΑΠΟ ΤΟ ΤΜΗΜΑ" type="string" expression="${tmima}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eidos_provlimatos_S1" name="ΕΙΔΟΣ ΠΡΟΒΛΗΜΑΤΟΣ" type="enum" expression="${deltio_anaggelias}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="perigrafi_upeuthunou_S1" name="ΠΕΡΙΓΡΑΦΗ" type="string" expression="${perigrafi_upeuthunou}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_S1" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΧΡΗΣΤΗ" type="string" expression="${stoixeia_xristi}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_paradosis_S1" name="ΗΜΕΡΟΜΗΝΙΑ ΠΑΡΑΔΟΣΗΣ" type="date" datePattern="dd-MMM-yyyy" required="true"></activiti:formProperty>
+        <activiti:formProperty id="wra_paradosis_S1" name="ΩΡΑ ΠΑΡΑΔΟΣΗΣ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_texnikou_S1" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΤΕΧΝΙΚΟΥ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="paratiriseis_S1" name="ΠΑΡΑΤΗΡΗΣΕΙΣ ΤΕΧΝΙΚΟΥ" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow67" sourceRef="usertask23" targetRef="usertask42"></sequenceFlow>
+    <userTask id="usertask43" name="Ολοκλήρωση Εργασιών" activiti:candidateGroups="texnikos">
+      <extensionElements>
+        <activiti:formProperty id="tmima_S2" name="ΔΕΛΤΙΟ ΑΝΑΓΓΕΛΙΑΣ ΑΠΟ ΤΟ ΤΜΗΜΑ" type="string" expression="${tmima}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eidos_provlimatos_S2" name="ΕΙΔΟΣ ΠΡΟΒΛΗΜΑΤΟΣ" type="enum" expression="${deltio_anaggelias}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="perigrafi_upeuthunou_S2" name="ΠΕΡΙΓΡΑΦΗ" type="string" expression="${perigrafi_upeuthunou}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_S2" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΧΡΗΣΤΗ" type="string" expression="${stoixeia_xristi}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_paradosis_S2" name="ΗΜΕΡΟΜΗΝΙΑ ΠΑΡΑΔΟΣΗΣ" type="date" expression="${imerominia_paradosis_S1}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="wra_paradosis_S2" name="ΩΡΑ ΠΑΡΑΔΟΣΗΣ" type="string" expression="${wra_paradosis_S1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_texnikou_S2" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΤΕΧΝΙΚΟΥ" type="string" expression="${stoixeia_texnikou_S1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="paratiriseis_S2" name="ΠΑΡΑΤΗΡΗΣΕΙΣ ΤΕΧΝΙΚΟΥ" type="string" expression="${paratiriseis_S1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kostos_S2" name="ΚΟΣΤΟΣ ΕΠΙΣΚΕΥΗΣ-ΚΑΤΑΣΚΕΥΗΣ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_epistrofis_S2" name="ΗΜΕΡΟΜΗΝΙΑ ΕΠΙΣΤΡΟΦΗΣ" type="date" datePattern="dd-MMM-yyyy" required="true"></activiti:formProperty>
+        <activiti:formProperty id="wra_epistrofis_S2" name="Ώρα επιστροφής" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_xristi_S2" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΧΡΗΣΤΗ" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow68" sourceRef="usertask42" targetRef="usertask43"></sequenceFlow>
+    <userTask id="usertask45" name="Αρχειοθέτηση" activiti:candidateGroups="dioikisi">
+      <extensionElements>
+        <activiti:formProperty id="tmima_S3" name="ΔΕΛΤΙΟ ΑΝΑΓΓΕΛΙΑΣ ΑΠΟ ΤΟ ΤΜΗΜΑ" type="string" expression="${tmima}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eidos_provlimatos_S3" name="ΕΙΔΟΣ ΠΡΟΒΛΗΜΑΤΟΣ" type="enum" expression="${deltio_anaggelias}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="perigrafi_upeuthunou_S3" name="ΠΕΡΙΓΡΑΦΗ" type="string" expression="${perigrafi_upeuthunou}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_S3" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΧΡΗΣΤΗ" type="string" expression="${stoixeia_xristi}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_paradosis_S3" name="ΗΜΕΡΟΜΗΝΙΑ ΠΑΡΑΔΟΣΗΣ" type="date" expression="${imerominia_paradosis_S1}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="wra_paradosis_S3" name="ΩΡΑ ΠΑΡΑΔΟΣΗΣ" type="string" expression="${wra_paradosis_S1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_texnikou_S3" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΤΕΧΝΙΚΟΥ" type="string" expression="${stoixeia_texnikou_S1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="paratiriseis_S3" name="ΠΑΡΑΤΗΡΗΣΕΙΣ ΤΕΧΝΙΚΟΥ" type="string" expression="${paratiriseis_S1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kostos_S3" name="ΚΟΣΤΟΣ ΕΠΙΣΚΕΥΗΣ-ΚΑΤΑΣΚΕΥΗΣ" type="string" expression="${kostos_S2}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_epistrofis_S3" name="ΗΜΕΡΟΜΗΝΙΑ ΕΠΙΣΤΡΟΦΗΣ" type="date" expression="${imerominia_epistrofis_S2}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="wra_epistrofis_S3" name="Ώρα επιστροφής" type="string" expression="${wra_epistrofis_S2}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_xristi_S3" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΧΡΗΣΤΗ" type="string" expression="${stoixeia_xristi_S2}" writable="false"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow69" sourceRef="usertask43" targetRef="usertask45"></sequenceFlow>
+    <sequenceFlow id="flow70" sourceRef="usertask45" targetRef="endevent6"></sequenceFlow>
+    <sequenceFlow id="flow71" sourceRef="exclusivegateway6" targetRef="usertask34">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${pros_etairia == 'negative'}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_KY_D2_5">
+    <bpmndi:BPMNPlane bpmnElement="KY_D2_5" id="BPMNPlane_KY_D2_5">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="160.0" y="150.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
+        <omgdc:Bounds height="81.0" width="105.0" x="380.0" y="127.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask9" id="BPMNShape_usertask9">
+        <omgdc:Bounds height="81.0" width="105.0" x="490.0" y="240.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent6" id="BPMNShape_endevent6">
+        <omgdc:Bounds height="35.0" width="35.0" x="693.0" y="806.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent7" id="BPMNShape_endevent7">
+        <omgdc:Bounds height="35.0" width="35.0" x="525.0" y="30.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway4" id="BPMNShape_exclusivegateway4">
+        <omgdc:Bounds height="40.0" width="40.0" x="522.0" y="147.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask20" id="BPMNShape_usertask20">
+        <omgdc:Bounds height="81.0" width="105.0" x="232.0" y="127.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway5" id="BPMNShape_exclusivegateway5">
+        <omgdc:Bounds height="40.0" width="40.0" x="522.0" y="340.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask21" id="BPMNShape_usertask21">
+        <omgdc:Bounds height="81.0" width="105.0" x="296.0" y="320.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask23" id="BPMNShape_usertask23">
+        <omgdc:Bounds height="81.0" width="105.0" x="658.0" y="320.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask24" id="BPMNShape_usertask24">
+        <omgdc:Bounds height="81.0" width="105.0" x="296.0" y="440.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway6" id="BPMNShape_exclusivegateway6">
+        <omgdc:Bounds height="40.0" width="40.0" x="328.0" y="550.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask27" id="BPMNShape_usertask27">
+        <omgdc:Bounds height="81.0" width="105.0" x="179.0" y="530.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask34" id="BPMNShape_usertask34">
+        <omgdc:Bounds height="81.0" width="105.0" x="413.0" y="530.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask35" id="BPMNShape_usertask35">
+        <omgdc:Bounds height="81.0" width="105.0" x="413.0" y="650.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask38" id="BPMNShape_usertask38">
+        <omgdc:Bounds height="81.0" width="105.0" x="413.0" y="770.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent9" id="BPMNShape_endevent9">
+        <omgdc:Bounds height="35.0" width="35.0" x="448.0" y="890.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask39" id="BPMNShape_usertask39">
+        <omgdc:Bounds height="81.0" width="105.0" x="179.0" y="650.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask40" id="BPMNShape_usertask40">
+        <omgdc:Bounds height="81.0" width="105.0" x="179.0" y="770.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask41" id="BPMNShape_usertask41">
+        <omgdc:Bounds height="81.0" width="105.0" x="179.0" y="890.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent10" id="BPMNShape_endevent10">
+        <omgdc:Bounds height="35.0" width="35.0" x="214.0" y="999.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask42" id="BPMNShape_usertask42">
+        <omgdc:Bounds height="81.0" width="105.0" x="658.0" y="440.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask43" id="BPMNShape_usertask43">
+        <omgdc:Bounds height="81.0" width="105.0" x="658.0" y="560.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask45" id="BPMNShape_usertask45">
+        <omgdc:Bounds height="81.0" width="105.0" x="658.0" y="680.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
+        <omgdi:waypoint x="485.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="522.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
+        <omgdi:waypoint x="542.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="542.0" y="65.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
+        <omgdi:waypoint x="542.0" y="187.0"></omgdi:waypoint>
+        <omgdi:waypoint x="542.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow40" id="BPMNEdge_flow40">
+        <omgdi:waypoint x="195.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="232.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow41" id="BPMNEdge_flow41">
+        <omgdi:waypoint x="337.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="380.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow42" id="BPMNEdge_flow42">
+        <omgdi:waypoint x="542.0" y="321.0"></omgdi:waypoint>
+        <omgdi:waypoint x="542.0" y="340.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow43" id="BPMNEdge_flow43">
+        <omgdi:waypoint x="562.0" y="360.0"></omgdi:waypoint>
+        <omgdi:waypoint x="658.0" y="360.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow44" id="BPMNEdge_flow44">
+        <omgdi:waypoint x="522.0" y="360.0"></omgdi:waypoint>
+        <omgdi:waypoint x="401.0" y="360.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow45" id="BPMNEdge_flow45">
+        <omgdi:waypoint x="348.0" y="401.0"></omgdi:waypoint>
+        <omgdi:waypoint x="348.0" y="440.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow46" id="BPMNEdge_flow46">
+        <omgdi:waypoint x="348.0" y="521.0"></omgdi:waypoint>
+        <omgdi:waypoint x="348.0" y="550.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow49" id="BPMNEdge_flow49">
+        <omgdi:waypoint x="328.0" y="570.0"></omgdi:waypoint>
+        <omgdi:waypoint x="284.0" y="570.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow58" id="BPMNEdge_flow58">
+        <omgdi:waypoint x="465.0" y="611.0"></omgdi:waypoint>
+        <omgdi:waypoint x="465.0" y="650.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow61" id="BPMNEdge_flow61">
+        <omgdi:waypoint x="465.0" y="731.0"></omgdi:waypoint>
+        <omgdi:waypoint x="465.0" y="770.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow62" id="BPMNEdge_flow62">
+        <omgdi:waypoint x="465.0" y="851.0"></omgdi:waypoint>
+        <omgdi:waypoint x="465.0" y="890.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow63" id="BPMNEdge_flow63">
+        <omgdi:waypoint x="231.0" y="611.0"></omgdi:waypoint>
+        <omgdi:waypoint x="231.0" y="650.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow64" id="BPMNEdge_flow64">
+        <omgdi:waypoint x="231.0" y="731.0"></omgdi:waypoint>
+        <omgdi:waypoint x="231.0" y="770.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow65" id="BPMNEdge_flow65">
+        <omgdi:waypoint x="231.0" y="851.0"></omgdi:waypoint>
+        <omgdi:waypoint x="231.0" y="890.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow66" id="BPMNEdge_flow66">
+        <omgdi:waypoint x="231.0" y="971.0"></omgdi:waypoint>
+        <omgdi:waypoint x="231.0" y="999.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow67" id="BPMNEdge_flow67">
+        <omgdi:waypoint x="710.0" y="401.0"></omgdi:waypoint>
+        <omgdi:waypoint x="710.0" y="440.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow68" id="BPMNEdge_flow68">
+        <omgdi:waypoint x="710.0" y="521.0"></omgdi:waypoint>
+        <omgdi:waypoint x="710.0" y="560.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow69" id="BPMNEdge_flow69">
+        <omgdi:waypoint x="710.0" y="641.0"></omgdi:waypoint>
+        <omgdi:waypoint x="710.0" y="680.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow70" id="BPMNEdge_flow70">
+        <omgdi:waypoint x="710.0" y="761.0"></omgdi:waypoint>
+        <omgdi:waypoint x="710.0" y="806.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow71" id="BPMNEdge_flow71">
+        <omgdi:waypoint x="368.0" y="570.0"></omgdi:waypoint>
+        <omgdi:waypoint x="413.0" y="570.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

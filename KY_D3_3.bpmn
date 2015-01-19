@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" activiti:candidateStarterGroups="nosileutis" targetNamespace="http://www.activiti.org/test">
+  <process id="KY_D3_3" name="KY_D3_3" isExecutable="true">
+    <startEvent id="startevent1" name="Start"></startEvent>
+    <userTask id="usertask1" name="Καταγραφή στοιχείων" activiti:candidateGroups="proistamenos">
+      <extensionElements>
+        <activiti:formProperty id="tmima" name="ΤΜΗΜΑ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="imerominia" name="ΗΜΕΡΟΜΗΝΙΑ ΒΑΡΔΙΑΣ" type="date" datePattern="dd-MMM-yyyy" required="true"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΥΠΑΛΛΗΛΟΥ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="vardia" name="ΩΡΑΡΙΟ ΒΑΡΔΙΑΣ" type="enum" required="true">
+          <activiti:value id="prwi" name="ΠΡΩΙ"></activiti:value>
+          <activiti:value id="apogeuma" name="ΑΠΟΓΕΥΜΑ"></activiti:value>
+          <activiti:value id="nuxta" name="ΝΥΧΤΑ"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
+    <userTask id="usertask2" name="Καταχώρηση ώρας έναρξης βάρδιας" activiti:candidateGroups="nosileutis,giatros">
+      <extensionElements>
+        <activiti:formProperty id="tmima_2" name="ΤΜΗΜΑ" type="string" expression="${tmima}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_2" name="ΗΜΕΡΟΜΗΝΙΑ ΒΑΡΔΙΑΣ" type="date" expression="${imerominia}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_2" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΥΠΑΛΛΗΛΟΥ" type="string" expression="${stoixeia}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="vardia_2" name="ΩΡΑΡΙΟ ΒΑΡΔΙΑΣ" type="enum" expression="${vardia}" writable="false">
+          <activiti:value id="prwi" name="ΠΡΩΙ"></activiti:value>
+          <activiti:value id="apogeuma" name="ΑΠΟΓΕΥΜΑ"></activiti:value>
+          <activiti:value id="nuxta" name="ΝΥΧΤΑ"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="wra_enarksis" name="ΩΡΑ ΕΝΑΡΞΗΣ ΒΑΡΔΙΑΣ" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="usertask2"></sequenceFlow>
+    <userTask id="usertask3" name="Καταχώρηση ώρας λήξης βάρδιας" activiti:candidateGroups="nosileutis,giatros">
+      <extensionElements>
+        <activiti:formProperty id="tmima_3" name="ΤΜΗΜΑ" type="string" expression="${tmima}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_3" name="ΗΜΕΡΟΜΗΝΙΑ ΒΑΡΔΙΑΣ" type="date" expression="${imerominia}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_3" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΥΠΑΛΛΗΛΟΥ" type="string" expression="${stoixeia}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="vardia_3" name="ΩΡΑΡΙΟ ΒΑΡΔΙΑΣ" type="enum" expression="${vardia}" writable="false">
+          <activiti:value id="prwi" name="ΠΡΩΙ"></activiti:value>
+          <activiti:value id="apogeuma" name="ΑΠΟΓΕΥΜΑ"></activiti:value>
+          <activiti:value id="nuxta" name="ΝΥΧΤΑ"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="wra_enarksis_3" name="ΩΡΑ ΕΝΑΡΞΗΣ ΒΑΡΔΙΑΣ" type="string" expression="${wra_enarksis}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="wra_liksis" name="ΩΡΑ ΛΗΞΗΣ ΒΑΡΔΙΑΣ" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow3" sourceRef="usertask2" targetRef="usertask3"></sequenceFlow>
+    <userTask id="usertask4" name="Επικύρωση παρουσίας απο τον προϊστάμενο" activiti:candidateGroups="proistamenos">
+      <extensionElements>
+        <activiti:formProperty id="tmima_4" name="ΤΜΗΜΑ" type="string" expression="${tmima}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_4" name="ΗΜΕΡΟΜΗΝΙΑ ΒΑΡΔΙΑΣ" type="date" expression="${imerominia}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_4" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΥΠΑΛΛΗΛΟΥ" type="string" expression="${stoixeia}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="vardia_4" name="ΩΡΑΡΙΟ ΒΑΡΔΙΑΣ" type="enum" expression="${vardia}" writable="false">
+          <activiti:value id="prwi" name="ΠΡΩΙ"></activiti:value>
+          <activiti:value id="apogeuma" name="ΑΠΟΓΕΥΜΑ"></activiti:value>
+          <activiti:value id="nuxta" name="ΝΥΧΤΑ"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="wra_enarksis_4" name="ΩΡΑ ΕΝΑΡΞΗΣ ΒΑΡΔΙΑΣ" type="string" expression="${wra_enarksis}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="wra_liksis_4" name="ΩΡΑ ΛΗΞΗΣ ΒΑΡΔΙΑΣ" type="string" expression="${wra_liksis}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_p_4" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΠΡΟΪΣΤΑΜΕΝΟΥ" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow4" sourceRef="usertask3" targetRef="usertask4"></sequenceFlow>
+    <userTask id="usertask5" name="Αποστολή ως αποδεικτικά πληρωμής" activiti:candidateGroups="dioikisi">
+      <extensionElements>
+        <activiti:formProperty id="tmima_5" name="ΤΜΗΜΑ" type="string" expression="${tmima}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imerominia_5" name="ΗΜΕΡΟΜΗΝΙΑ ΒΑΡΔΙΑΣ" type="date" expression="${imerominia}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_5" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΥΠΑΛΛΗΛΟΥ" type="string" expression="${stoixeia}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="vardia_5" name="ΩΡΑΡΙΟ ΒΑΡΔΙΑΣ" type="enum" expression="${vardia}" writable="false">
+          <activiti:value id="prwi" name="ΠΡΩΙ"></activiti:value>
+          <activiti:value id="apogeuma" name="ΑΠΟΓΕΥΜΑ"></activiti:value>
+          <activiti:value id="nuxta" name="ΝΥΧΤΑ"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="wra_enarksis_5" name="ΩΡΑ ΕΝΑΡΞΗΣ ΒΑΡΔΙΑΣ" type="string" expression="${wra_enarksis}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="wra_liksis_5" name="ΩΡΑ ΛΗΞΗΣ ΒΑΡΔΙΑΣ" type="string" expression="${wra_liksis}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_p_5" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΠΡΟΪΣΤΑΜΕΝΟΥ" type="string" expression="${stoixeia_p_4}" writable="false"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow6" sourceRef="usertask4" targetRef="usertask5"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow7" sourceRef="usertask5" targetRef="endevent1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_KY_D3_3">
+    <bpmndi:BPMNPlane bpmnElement="KY_D3_3" id="BPMNPlane_KY_D3_3">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="100.0" y="150.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="81.0" width="105.0" x="170.0" y="127.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
+        <omgdc:Bounds height="81.0" width="105.0" x="330.0" y="127.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
+        <omgdc:Bounds height="81.0" width="105.0" x="490.0" y="127.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
+        <omgdc:Bounds height="81.0" width="105.0" x="490.0" y="260.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask5" id="BPMNShape_usertask5">
+        <omgdc:Bounds height="81.0" width="105.0" x="490.0" y="390.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="640.0" y="413.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="135.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="170.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="275.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="330.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="435.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="490.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="542.0" y="208.0"></omgdi:waypoint>
+        <omgdi:waypoint x="542.0" y="260.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="542.0" y="341.0"></omgdi:waypoint>
+        <omgdi:waypoint x="542.0" y="390.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="595.0" y="430.0"></omgdi:waypoint>
+        <omgdi:waypoint x="640.0" y="430.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

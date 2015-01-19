@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" activiti:candidateStarterGroups="nosileutis" targetNamespace="http://www.activiti.org/test">
+  <process id="KY_D3_5" name="KY_D3_5" isExecutable="true">
+    <startEvent id="startevent1" name="Start"></startEvent>
+    <userTask id="usertask1" name="Συμπλήρωση Δελτίου Υπερωριών" activiti:candidateGroups="proistamenos">
+      <extensionElements>
+        <activiti:formProperty id="tmima" name="ΤΜΗΜΑ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="minas" name="ΜΗΝΑΣ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="argies" name="ΑΡΙΘΜΟΣ ΑΡΓΙΩΝ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_upallilou" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="eidikotita" name="ΕΙΔΙΚΟΤΗΤΑ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="wres_ergasias" name="ΩΡΕΣ ΕΡΓΑΣΙΑΣ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="imera_argias" name="ΒΑΡΔΙΕΣ ΣΕ ΜΕΡΑ ΑΡΓΙΑΣ" type="string"></activiti:formProperty>
+        <activiti:formProperty id="nuxta_argias" name="ΒΑΡΔΙΕΣ ΣΕ ΝΥΧΤΑ ΑΡΓΙΑΣ" type="string"></activiti:formProperty>
+        <activiti:formProperty id="nuxta_6wro" name="ΑΡΙΘΜΟΣ ΝΥΧΤΩΝ 6-ΩΡΟΥ" type="string"></activiti:formProperty>
+        <activiti:formProperty id="nuxta_7wro" name="ΑΡΙΘΜΟΣ ΝΥΧΤΩΝ 7-ΩΡΟΥ" type="string"></activiti:formProperty>
+        <activiti:formProperty id="nuxta_wres_kath" name="ΑΡΙΘΜΟΣ ΝΥΧΤΕΡΙΝΩΝ ΩΡΩΝ ΚΑΘΗΜΕΡΙΝΩΝ" type="string"></activiti:formProperty>
+        <activiti:formProperty id="nuxta_wres_arg" name="ΑΡΙΘΜΟΣ ΝΥΧΤΕΡΙΝΩΝ ΩΡΩΝ ΑΡΓΙΩΝ" type="string"></activiti:formProperty>
+        <activiti:formProperty id="sunolo_kath" name="ΣΥΝΟΛΟ ΥΠΕΡΩΡΙΩΝ ΚΑΘΗΜΕΡΙΝΕΣ" type="string"></activiti:formProperty>
+        <activiti:formProperty id="sunolo_arg" name="ΣΥΝΟΛΟ ΥΠΕΡΩΡΙΩΝ ΑΡΓΙΕΣ" type="string"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΠΡΟΪΣΤΑΜΕΝΟΥ" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
+    <userTask id="usertask7" name="Έγκριση απο το Διευθυντή" activiti:candidateGroups="dieuthuntis">
+      <extensionElements>
+        <activiti:formProperty id="tmima_2" name="ΤΜΗΜΑ" type="string" expression="${tmima}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="minas_2" name="ΜΗΝΑΣ" type="string" expression="${minas}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="argies_2" name="ΑΡΙΘΜΟΣ ΑΡΓΙΩΝ" type="string" expression="${argies}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_upallilou_2" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ" type="string" expression="${stoixeia_upallilou}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eidikotita_2" name="ΕΙΔΙΚΟΤΗΤΑ" type="string" expression="${eidikotita}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="wres_ergasias_2" name="ΩΡΕΣ ΕΡΓΑΣΙΑΣ" type="string" expression="${wres_ergasias}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imera_argias_2" name="ΒΑΡΔΙΕΣ ΣΕ ΜΕΡΑ ΑΡΓΙΑΣ" type="string" expression="${imera_argias}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="nuxta_argias_2" name="ΒΑΡΔΙΕΣ ΣΕ ΝΥΧΤΑ ΑΡΓΙΑΣ" type="string" expression="${nuxta_argias}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="nuxta_6wro_2" name="ΑΡΙΘΜΟΣ ΝΥΧΤΩΝ 6-ΩΡΟΥ" type="string" expression="${nuxta_6wro}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="nuxta_7wro_2" name="ΑΡΙΘΜΟΣ ΝΥΧΤΩΝ 7-ΩΡΟΥ" type="string" expression="${nuxta_7wro}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="nuxta_wres_kath_2" name="ΑΡΙΘΜΟΣ ΝΥΧΤΕΡΙΝΩΝ ΩΡΩΝ ΚΑΘΗΜΕΡΙΝΩΝ" type="string" expression="${nuxta_wres_kath}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="nuxta_wres_arg_2" name="ΑΡΙΘΜΟΣ ΝΥΧΤΕΡΙΝΩΝ ΩΡΩΝ ΑΡΓΙΩΝ" type="string" expression="${nuxta_wres_arg}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sunolo_kath_2" name="ΣΥΝΟΛΟ ΥΠΕΡΩΡΙΩΝ ΚΑΘΗΜΕΡΙΝΕΣ" type="string" expression="${sunolo_kath}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sunolo_arg_2" name="ΣΥΝΟΛΟ ΥΠΕΡΩΡΙΩΝ ΑΡΓΙΕΣ" type="string" expression="${sunolo_arg}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_2" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΠΡΟΪΣΤΑΜΕΝΟΥ" type="string" expression="${stoixeia}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_dieuthunti_2" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΔΙΕΥΘΥΝΤΗ" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow9" sourceRef="usertask1" targetRef="usertask7"></sequenceFlow>
+    <userTask id="usertask8" name="Κοστολόγηση υπερωριών και πληρωμή" activiti:candidateGroups="dioikisi">
+      <extensionElements>
+        <activiti:formProperty id="tmima_2" name="ΤΜΗΜΑ" type="string" expression="${tmima}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="minas_2" name="ΜΗΝΑΣ" type="string" expression="${minas}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="argies_2" name="ΑΡΙΘΜΟΣ ΑΡΓΙΩΝ" type="string" expression="${argies}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_upallilou_2" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ" type="string" expression="${stoixeia_upallilou}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eidikotita_2" name="ΕΙΔΙΚΟΤΗΤΑ" type="string" expression="${eidikotita}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="wres_ergasias_2" name="ΩΡΕΣ ΕΡΓΑΣΙΑΣ" type="string" expression="${wres_ergasias}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="imera_argias_2" name="ΒΑΡΔΙΕΣ ΣΕ ΜΕΡΑ ΑΡΓΙΑΣ" type="string" expression="${imera_argias}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="nuxta_argias_2" name="ΒΑΡΔΙΕΣ ΣΕ ΝΥΧΤΑ ΑΡΓΙΑΣ" type="string" expression="${nuxta_argias}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="nuxta_6wro_2" name="ΑΡΙΘΜΟΣ ΝΥΧΤΩΝ 6-ΩΡΟΥ" type="string" expression="${nuxta_6wro}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="nuxta_7wro_2" name="ΑΡΙΘΜΟΣ ΝΥΧΤΩΝ 7-ΩΡΟΥ" type="string" expression="${nuxta_7wro}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="nuxta_wres_kath_2" name="ΑΡΙΘΜΟΣ ΝΥΧΤΕΡΙΝΩΝ ΩΡΩΝ ΚΑΘΗΜΕΡΙΝΩΝ" type="string" expression="${nuxta_wres_kath}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="nuxta_wres_arg_2" name="ΑΡΙΘΜΟΣ ΝΥΧΤΕΡΙΝΩΝ ΩΡΩΝ ΑΡΓΙΩΝ" type="string" expression="${nuxta_wres_arg}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sunolo_kath_2" name="ΣΥΝΟΛΟ ΥΠΕΡΩΡΙΩΝ ΚΑΘΗΜΕΡΙΝΕΣ" type="string" expression="${sunolo_kath}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sunolo_arg_2" name="ΣΥΝΟΛΟ ΥΠΕΡΩΡΙΩΝ ΑΡΓΙΕΣ" type="string" expression="${sunolo_arg}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_2" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΠΡΟΪΣΤΑΜΕΝΟΥ" type="string" expression="${stoixeia}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_dieuthunti_3" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΔΙΕΥΘΥΝΤΗ" type="string" expression="${stoixeia_dieuthunti_2}" writable="false"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow10" sourceRef="usertask7" targetRef="usertask8"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow11" sourceRef="usertask8" targetRef="endevent1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_KY_D3_5">
+    <bpmndi:BPMNPlane bpmnElement="KY_D3_5" id="BPMNPlane_KY_D3_5">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="100.0" y="150.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="81.0" width="105.0" x="170.0" y="127.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask7" id="BPMNShape_usertask7">
+        <omgdc:Bounds height="81.0" width="105.0" x="310.0" y="127.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask8" id="BPMNShape_usertask8">
+        <omgdc:Bounds height="81.0" width="105.0" x="450.0" y="127.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="600.0" y="150.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="135.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="170.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="275.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="310.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="415.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="450.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="555.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="600.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

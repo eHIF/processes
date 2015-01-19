@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" activiti:candidateStarterGroups="nosileutis" targetNamespace="http://www.activiti.org/test">
+  <process id="KY_D2_7" name="KY_D2_7" isExecutable="true">
+    <startEvent id="startevent1" name="Start"></startEvent>
+    <userTask id="usertask1" name="Εγκεκριμένο ποσό καυσίμων" activiti:candidateGroups="grafeio_promitheiwn">
+      <extensionElements>
+        <activiti:formProperty id="poso" name="ΠΟΣΟ ΠΟΥ ΕΧΕΙ ΕΓΚΡΙΘΕΙ ΓΙΑ ΚΑΥΣΙΜΑ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΥΠΕΥΘΥΝΟΥ ΓΡΑΦΕΙΟΥ ΠΡΟΜΗΘΕΙΩΝ" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
+    <userTask id="usertask2" name="Προκήρυξη διαγωνισμού καυσίμων" activiti:candidateGroups="dioikisi">
+      <extensionElements>
+        <activiti:formProperty id="poso_1" name="ΠΟΣΟ ΠΟΥ ΕΧΕΙ ΕΓΚΡΙΘΕΙ ΓΙΑ ΚΑΥΣΙΜΑ" type="string" expression="${poso}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_1" name="ΥΠΕΥΘΥΝΟΣ ΓΡΑΦΕΙΟΥ ΠΡΟΜΗΘΕΙΩΝ" type="string" expression="${stoixeia}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="posotita_thermansis" name="ΕΚΤΙΜΩΜΕΝΗ ΠΟΣΟΤΗΤΑ ΚΑΥΣΙΜΩΝ ΘΕΡΜΑΝΣΗΣ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="posotita_kinisis" name="ΕΚΤΙΜΩΜΕΝΗ ΠΟΣΟΤΗΤΑ ΚΑΥΣΙΜΩΝ ΚΙΝΗΣΗΣ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="posotita_thermansis_prokir" name="ΠΟΣΟΤΗΤΑ ΚΑΥΣΙΜΩΝ ΘΕΡΜΑΝΣΗΣ ΠΡΟΚΗΡΥΞΗΣ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="posotita_kinisis_prokir" name="ΠΟΣΟΤΗΤΑ ΚΑΥΣΙΜΩΝ ΚΙΝΗΣΗΣ ΠΡΟΚΗΡΥΞΗΣ" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow36" sourceRef="usertask1" targetRef="usertask2"></sequenceFlow>
+    <userTask id="usertask20" name="Επιλογή καλύτερης προσφοράς" activiti:candidateGroups="dioikisi">
+      <extensionElements>
+        <activiti:formProperty id="prosfora_th1" name="ΤΙΜΗ ΛΙΤΡΟΥ ΓΙΑ ΘΕΡΜΑΝΣΗ" type="string"></activiti:formProperty>
+        <activiti:formProperty id="prosfora_th2" name="ΤΙΜΗ ΛΙΤΡΟΥ ΓΙΑ ΘΕΡΜΑΝΣΗ" type="string"></activiti:formProperty>
+        <activiti:formProperty id="prosfora_th3" name="ΤΙΜΗ ΛΙΤΡΟΥ ΓΙΑ ΘΕΡΜΑΝΣΗ" type="string"></activiti:formProperty>
+        <activiti:formProperty id="prosfora_th4" name="ΤΙΜΗ ΛΙΤΡΟΥ ΓΙΑ ΘΕΡΜΑΝΣΗ" type="string"></activiti:formProperty>
+        <activiti:formProperty id="prosfora_th5" name="ΤΙΜΗ ΛΙΤΡΟΥ ΓΙΑ ΘΕΡΜΑΝΣΗ" type="string"></activiti:formProperty>
+        <activiti:formProperty id="prosfora_k1" name="ΤΙΜΗ ΛΙΤΡΟΥ ΓΙΑ ΚΙΝΗΣΗ" type="string"></activiti:formProperty>
+        <activiti:formProperty id="prosfora_k2" name="ΤΙΜΗ ΛΙΤΡΟΥ ΓΙΑ ΚΙΝΗΣΗ" type="string"></activiti:formProperty>
+        <activiti:formProperty id="prosfora_k3" name="ΤΙΜΗ ΛΙΤΡΟΥ ΓΙΑ ΚΙΝΗΣΗ" type="string"></activiti:formProperty>
+        <activiti:formProperty id="prosfora_k4" name="ΤΙΜΗ ΛΙΤΡΟΥ ΓΙΑ ΚΙΝΗΣΗ" type="string"></activiti:formProperty>
+        <activiti:formProperty id="prosfora_k5" name="ΤΙΜΗ ΛΙΤΡΟΥ ΓΙΑ ΚΙΝΗΣΗ" type="string"></activiti:formProperty>
+        <activiti:formProperty id="protasi_thermansis" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΠΩΛΗΤΗ ΚΑΛΥΤΕΡΗΣ ΠΡΟΣΦΟΡΑΣ ΘΕΡΜΑΝΣΗΣ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="protasi_kinisis" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΠΩΛΗΤΗ ΚΑΛΥΤΕΡΗΣ ΠΡΟΣΦΟΡΑΣ ΚΙΝΗΣΗΣ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_dioikitikou" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΔΙΟΙΚΗΤΙΚΟΥ" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow37" sourceRef="usertask2" targetRef="usertask20"></sequenceFlow>
+    <userTask id="usertask21" name="Επικύρωση σύμβασης" activiti:candidateGroups="dieuthuntis">
+      <extensionElements>
+        <activiti:formProperty id="prosfora_th1_b" name="ΠΡΟΣΦΟΡΑ ΘΕΡΜΑΝΣΗΣ 1 (ΤΙΜΗ/ΛΙΤΡΟ)" type="string" expression="${prosfora_th1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="prosfora_th2_b" name="ΠΡΟΣΦΟΡΑ ΘΕΡΜΑΝΣΗΣ 3 (ΤΙΜΗ/ΛΙΤΡΟ)" type="string" expression="${prosfora_th2}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="prosfora_th3_b" name="ΠΡΟΣΦΟΡΑ ΘΕΡΜΑΝΣΗΣ 4 (ΤΙΜΗ/ΛΙΤΡΟ)" type="string" expression="${prosfora_th3}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="prosfora_th4_b" name="ΠΡΟΣΦΟΡΑ ΘΕΡΜΑΝΣΗΣ 5 (ΤΙΜΗ/ΛΙΤΡΟ)" type="string" expression="${prosfora_th4}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="prosfora_th5_b" name="ΠΡΟΣΦΟΡΑ ΘΕΡΜΑΝΣΗΣ 1 (ΤΙΜΗ/ΛΙΤΡΟ)" type="string" expression="${prosfora_th5}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="prosfora_k1_b" name="ΠΡΟΣΦΟΡΑ ΚΙΝΗΣΗΣ 1 (ΤΙΜΗ/ΛΙΤΡΟ)" type="string" expression="${prosfora_k1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="prosfora_k2_b" name="ΠΡΟΣΦΟΡΑ ΚΙΝΗΣΗΣ 2 (ΤΙΜΗ/ΛΙΤΡΟ)" type="string" expression="${prosfora_k2}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="prosfora_k3_b" name="ΠΡΟΣΦΟΡΑ ΚΙΝΗΣΗΣ 3 (ΤΙΜΗ/ΛΙΤΡΟ)" type="string" expression="${prosfora_k3}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="prosfora_k4_b" name="ΠΡΟΣΦΟΡΑ ΚΙΝΗΣΗΣ 4 (ΤΙΜΗ/ΛΙΤΡΟ)" type="string" expression="${prosfora_k4}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="prosfora_k5_b" name="ΠΡΟΣΦΟΡΑ ΚΙΝΗΣΗΣ 5 (ΤΙΜΗ/ΛΙΤΡΟ)" type="string" expression="${prosfora_k5}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="protasi_thermansis_b" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΠΩΛΗΤΗ ΚΑΛΥΤΕΡΗΣ ΠΡΟΣΦΟΡΑΣ ΘΕΡΜΑΝΣΗΣ" type="string" expression="${protasi_thermansis}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="protasi_kinisis_b" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΠΩΛΗΤΗ ΚΑΛΥΤΕΡΗΣ ΠΡΟΣΦΟΡΑΣ ΚΙΝΗΣΗΣ" type="string" expression="${protasi_kinisis}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_dioikitikou_b" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΔΙΟΙΚΗΤΙΚΟΥ" type="string" expression="${stoixeia_dioikitikou}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="epikirwsi_proedrou" name="ΕΠΙΚΥΡΩΣΗ ΠΡΟΣΦΟΡΑΣ ΑΠΟ ΤΟΝ ΠΡΟΕΔΡΟ ΤΟΥ ΣΥΜΒΟΥΛΙΟΥ" type="enum" required="true">
+          <activiti:value id="positive" name="ΑΠΟΔΟΧΗ"></activiti:value>
+          <activiti:value id="negative" name="ΑΠΟΡΡΙΨΗ"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow38" sourceRef="usertask20" targetRef="usertask21"></sequenceFlow>
+    <userTask id="usertask22" name="Κατάθεση αποδεικτικών" activiti:candidateGroups="grafeio_promitheiwn">
+      <extensionElements>
+        <activiti:formProperty id="prosforath1" name="ΠΡΟΣΦΟΡΑ ΘΕΡΜΑΝΣΗΣ 1 (ΤΙΜΗ/ΛΙΤΡΟ)" type="string" expression="${prosfora_th1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="prosforath2" name="ΠΡΟΣΦΟΡΑ ΘΕΡΜΑΝΣΗΣ 3 (ΤΙΜΗ/ΛΙΤΡΟ)" type="string" expression="${prosfora_th2}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="prosforath3" name="ΠΡΟΣΦΟΡΑ ΘΕΡΜΑΝΣΗΣ 4 (ΤΙΜΗ/ΛΙΤΡΟ)" type="string" expression="${prosfora_th3}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="prosforath4" name="ΠΡΟΣΦΟΡΑ ΘΕΡΜΑΝΣΗΣ 5 (ΤΙΜΗ/ΛΙΤΡΟ)" type="string" expression="${prosfora_th4}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="prosforath5" name="ΠΡΟΣΦΟΡΑ ΘΕΡΜΑΝΣΗΣ 1 (ΤΙΜΗ/ΛΙΤΡΟ)" type="string" expression="${prosfora_th5}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="prosforak1" name="ΠΡΟΣΦΟΡΑ ΚΙΝΗΣΗΣ 1 (ΤΙΜΗ/ΛΙΤΡΟ)" type="string" expression="${prosfora_k1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="prosforak2" name="ΠΡΟΣΦΟΡΑ ΚΙΝΗΣΗΣ 2 (ΤΙΜΗ/ΛΙΤΡΟ)" type="string" expression="${prosfora_k2}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="prosforak3" name="ΠΡΟΣΦΟΡΑ ΚΙΝΗΣΗΣ 3 (ΤΙΜΗ/ΛΙΤΡΟ)" type="string" expression="${prosfora_k3}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="prosforak4" name="ΠΡΟΣΦΟΡΑ ΚΙΝΗΣΗΣ 4 (ΤΙΜΗ/ΛΙΤΡΟ)" type="string" expression="${prosfora_k4}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="prosforak5" name="ΠΡΟΣΦΟΡΑ ΚΙΝΗΣΗΣ 5 (ΤΙΜΗ/ΛΙΤΡΟ)" type="string" expression="${prosfora_k5}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="protasi_ther" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΠΩΛΗΤΗ ΣΥΜΒΑΣΗΣ ΘΕΡΜΑΝΣΗΣ" type="string" expression="${protasi_thermansis}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="protasi_kin" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΠΩΛΗΤΗ ΣΥΜΒΑΣΗΣ ΚΙΝΗΣΗΣ" type="string" expression="${protasi_kinisis}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_dioikit" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΔΙΟΙΚΗΤΙΚΟΥ" type="string" expression="${stoixeia_dioikitikou}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="epikirwsi_proed" name="ΕΠΙΚΥΡΩΣΗ ΠΡΟΣΦΟΡΑΣ ΑΠΟ ΤΟΝ ΠΡΟΕΔΡΟ ΤΟΥ ΣΥΜΒΟΥΛΙΟΥ" type="string" expression="${epikirwsi_proedrou}" writable="false"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow40" sourceRef="usertask22" targetRef="endevent1"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow41" sourceRef="usertask21" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow42" sourceRef="exclusivegateway1" targetRef="usertask22">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${epikirwsi_proedrou == 'positive'}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow43" sourceRef="exclusivegateway1" targetRef="endevent2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${epikirwsi_proedrou == 'negative'}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_KY_D2_7">
+    <bpmndi:BPMNPlane bpmnElement="KY_D2_7" id="BPMNPlane_KY_D2_7">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="100.0" y="150.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="81.0" width="105.0" x="170.0" y="127.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
+        <omgdc:Bounds height="81.0" width="105.0" x="320.0" y="127.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask20" id="BPMNShape_usertask20">
+        <omgdc:Bounds height="81.0" width="105.0" x="470.0" y="127.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask21" id="BPMNShape_usertask21">
+        <omgdc:Bounds height="75.0" width="105.0" x="470.0" y="260.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask22" id="BPMNShape_usertask22">
+        <omgdc:Bounds height="75.0" width="105.0" x="470.0" y="455.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="505.0" y="565.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="502.0" y="370.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="587.0" y="373.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="135.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="170.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow36" id="BPMNEdge_flow36">
+        <omgdi:waypoint x="275.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="320.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow37" id="BPMNEdge_flow37">
+        <omgdi:waypoint x="425.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="470.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
+        <omgdi:waypoint x="522.0" y="208.0"></omgdi:waypoint>
+        <omgdi:waypoint x="522.0" y="260.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow40" id="BPMNEdge_flow40">
+        <omgdi:waypoint x="522.0" y="530.0"></omgdi:waypoint>
+        <omgdi:waypoint x="522.0" y="565.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow41" id="BPMNEdge_flow41">
+        <omgdi:waypoint x="522.0" y="335.0"></omgdi:waypoint>
+        <omgdi:waypoint x="522.0" y="370.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow42" id="BPMNEdge_flow42">
+        <omgdi:waypoint x="522.0" y="410.0"></omgdi:waypoint>
+        <omgdi:waypoint x="522.0" y="455.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow43" id="BPMNEdge_flow43">
+        <omgdi:waypoint x="542.0" y="390.0"></omgdi:waypoint>
+        <omgdi:waypoint x="587.0" y="390.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

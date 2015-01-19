@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" activiti:candidateStarterGroups="nosileutis" targetNamespace="http://www.activiti.org/test">
+  <process id="KY_D3_1" name="KY_D3_1" isExecutable="true">
+    <startEvent id="startevent1" name="Start"></startEvent>
+    <userTask id="usertask1" name="Αίτηση προμήθειας άδειας" activiti:candidateGroups="proistamenos">
+      <extensionElements>
+        <activiti:formProperty id="tmima" name="ΤΜΗΜΑ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_upallilou" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="meres" name="ΑΡΙΘΜΟΣ ΗΜΕΡΩΝ ΑΔΕΙΑΣ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="apo" name="ΗΜΕΡΟΜΗΝΙΑ ΕΝΑΡΞΗΣ ΑΔΕΙΑΣ" type="date" datePattern="dd-MMM-yyyy" required="true"></activiti:formProperty>
+        <activiti:formProperty id="eos" name="ΗΜΕΡΟΜΗΝΙΑ ΛΗΞΗΣ ΑΔΕΙΑΣ" type="date" datePattern="dd-MMM-yyyy" required="true"></activiti:formProperty>
+        <activiti:formProperty id="eidos" name="ΕΙΔΟΣ ΑΔΕΙΑΣ" type="enum" required="true">
+          <activiti:value id="anarrwtiki" name="ΑΝΑΡΡΩΤΙΚΗ"></activiti:value>
+          <activiti:value id="ekpaideutiki" name="ΕΚΠΑΙΔΕΥΤΙΚΗ"></activiti:value>
+          <activiti:value id="repo" name="ΡΕΠΟ"></activiti:value>
+          <activiti:value id="kuisis" name="ΚΥΗΣΗΣ"></activiti:value>
+          <activiti:value id="epistimoniki" name="ΕΠΙΣΤΗΜΟΝΙΚΗ"></activiti:value>
+          <activiti:value id="anef" name="ΑΝΕΥ ΑΠΟΔΟΧΩΝ"></activiti:value>
+          <activiti:value id="oligowri" name="ΟΛΙΓΟΩΡΗ"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="palio_upoloipo" name="ΧΩΡΗΓΗΘΕΙΣΕΣ ΑΔΕΙΕΣ ΕΤΟΥΣ ΜΕΧΡΙ ΣΗΜΕΡΑ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="neo_upoloipo" name="ΝΕΟ ΥΠΟΛΟΙΠΟ ΑΔΕΙΩΝ ΕΤΟΥΣ" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow5" sourceRef="exclusivegateway1" targetRef="usertask10">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${egkrisi == 'negative'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="usertask7" name="Έγκριση από το Διευθυντή" activiti:candidateGroups="dieuthuntis">
+      <extensionElements>
+        <activiti:formProperty id="tmima_2" name="ΤΜΗΜΑ" type="string" expression="${tmima}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_upallilou_2" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ" type="string" expression="${stoixeia_upallilou}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="meres_2" name="ΑΡΙΘΜΟΣ ΗΜΕΡΩΝ ΑΔΕΙΑΣ" type="string" expression="${meres}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="apo_2" name="ΗΜΕΡΟΜΗΝΙΑ ΕΝΑΡΞΗΣ ΑΔΕΙΑΣ" type="date" expression="${apo}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eos_2" name="ΗΜΕΡΟΜΗΝΙΑ ΛΗΞΗΣ ΑΔΕΙΑΣ" type="date" expression="${eos}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eidos_2" name="ΕΙΔΟΣ ΑΔΕΙΑΣ" type="enum" expression="${eidos}" writable="false">
+          <activiti:value id="anarrwtiki" name="ΑΝΑΡΡΩΤΙΚΗ"></activiti:value>
+          <activiti:value id="ekpaideutiki" name="ΕΚΠΑΙΔΕΥΤΙΚΗ"></activiti:value>
+          <activiti:value id="repo" name="ΡΕΠΟ"></activiti:value>
+          <activiti:value id="kuisis" name="ΚΥΗΣΗΣ"></activiti:value>
+          <activiti:value id="epistimoniki" name="ΕΠΙΣΤΗΜΟΝΙΚΗ"></activiti:value>
+          <activiti:value id="anef" name="ΑΝΕΥ ΑΠΟΔΟΧΩΝ"></activiti:value>
+          <activiti:value id="oligowri" name="ΟΛΙΓΟΩΡΗ"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="palio_upoloipo_2" name="ΧΩΡΗΓΗΘΕΙΣΕΣ ΑΔΕΙΕΣ ΕΤΟΥΣ ΜΕΧΡΙ ΣΗΜΕΡΑ" type="string" expression="${palio_upoloipo}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="neo_upoloipo_2" name="ΝΕΟ ΥΠΟΛΟΙΠΟ ΑΔΕΙΩΝ ΕΤΟΥΣ" type="string" expression="${neo_upoloipo}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_dieuthunti" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΔΙΕΥΘΥΝΤΗ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="egkrisi" name="ΚΑΤΑΣΤΑΣΗ ΑΙΤΗΣΗΣ" type="enum" required="true">
+          <activiti:value id="positive" name="ΑΠΟΔΟΧΗ"></activiti:value>
+          <activiti:value id="negative" name="ΑΠΟΡΙΨΗ"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow9" sourceRef="usertask1" targetRef="usertask7"></sequenceFlow>
+    <sequenceFlow id="flow10" sourceRef="usertask7" targetRef="exclusivegateway1"></sequenceFlow>
+    <parallelGateway id="parallelgateway1" name="Parallel Gateway"></parallelGateway>
+    <sequenceFlow id="flow11" sourceRef="exclusivegateway1" targetRef="parallelgateway1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${egkrisi == 'positive'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="usertask8" name="Ενημέρωση Ατομικού Φακέλου υπαλλήλου" activiti:candidateGroups="grafeio_proswpikou">
+      <extensionElements>
+        <activiti:formProperty id="tmima_3" name="ΤΜΗΜΑ" type="string" expression="${tmima}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_upallilou_3" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ" type="string" expression="${stoixeia_upallilou}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="meres_3" name="ΑΡΙΘΜΟΣ ΗΜΕΡΩΝ ΑΔΕΙΑΣ" type="string" expression="${meres}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="apo_3" name="ΗΜΕΡΟΜΗΝΙΑ ΕΝΑΡΞΗΣ ΑΔΕΙΑΣ" type="date" expression="${apo}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eos_3" name="ΗΜΕΡΟΜΗΝΙΑ ΛΗΞΗΣ ΑΔΕΙΑΣ" type="date" expression="${eos}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eidos_3" name="ΕΙΔΟΣ ΑΔΕΙΑΣ" type="enum" expression="${eidos}" writable="false">
+          <activiti:value id="anarrwtiki" name="ΑΝΑΡΡΩΤΙΚΗ"></activiti:value>
+          <activiti:value id="ekpaideutiki" name="ΕΚΠΑΙΔΕΥΤΙΚΗ"></activiti:value>
+          <activiti:value id="repo" name="ΡΕΠΟ"></activiti:value>
+          <activiti:value id="kuisis" name="ΚΥΗΣΗΣ"></activiti:value>
+          <activiti:value id="epistimoniki" name="ΕΠΙΣΤΗΜΟΝΙΚΗ"></activiti:value>
+          <activiti:value id="anef" name="ΑΝΕΥ ΑΠΟΔΟΧΩΝ"></activiti:value>
+          <activiti:value id="oligowri" name="ΟΛΙΓΟΩΡΗ"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="palio_upoloipo_3" name="ΧΩΡΗΓΗΘΕΙΣΕΣ ΑΔΕΙΕΣ ΕΤΟΥΣ ΜΕΧΡΙ ΣΗΜΕΡΑ" type="string" expression="${palio_upoloipo}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="neo_upoloipo_3" name="ΝΕΟ ΥΠΟΛΟΙΠΟ ΑΔΕΙΩΝ ΕΤΟΥΣ" type="string" expression="${neo_upoloipo}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_dieuthunti_3" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΔΙΕΥΘΥΝΤΗ" type="string" expression="${stoixeia_dieuthunti}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="egkrisi_3" name="ΚΑΤΑΣΤΑΣΗ ΑΙΤΗΣΗΣ" type="enum" expression="${egkrisi}" writable="false">
+          <activiti:value id="positive" name="ΑΠΟΔΟΧΗ"></activiti:value>
+          <activiti:value id="negative" name="ΑΠΟΡΙΨΗ"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <userTask id="usertask9" name="Ενημέρωση Εντύπου Αδειών τμήματος" activiti:candidateGroups="proistamenos">
+      <extensionElements>
+        <activiti:formProperty id="tmima_4" name="ΤΜΗΜΑ" type="string" expression="${tmima}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_upallilou_4" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ" type="string" expression="${stoixeia_upallilou}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="meres_4" name="ΑΡΙΘΜΟΣ ΗΜΕΡΩΝ ΑΔΕΙΑΣ" type="string" expression="${meres}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="apo_4" name="ΗΜΕΡΟΜΗΝΙΑ ΕΝΑΡΞΗΣ ΑΔΕΙΑΣ" type="date" expression="${apo}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eos_4" name="ΗΜΕΡΟΜΗΝΙΑ ΛΗΞΗΣ ΑΔΕΙΑΣ" type="date" expression="${eos}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eidos_4" name="ΕΙΔΟΣ ΑΔΕΙΑΣ" type="enum" expression="${eidos}" writable="false">
+          <activiti:value id="anarrwtiki" name="ΑΝΑΡΡΩΤΙΚΗ"></activiti:value>
+          <activiti:value id="ekpaideutiki" name="ΕΚΠΑΙΔΕΥΤΙΚΗ"></activiti:value>
+          <activiti:value id="repo" name="ΡΕΠΟ"></activiti:value>
+          <activiti:value id="kuisis" name="ΚΥΗΣΗΣ"></activiti:value>
+          <activiti:value id="epistimoniki" name="ΕΠΙΣΤΗΜΟΝΙΚΗ"></activiti:value>
+          <activiti:value id="anef" name="ΑΝΕΥ ΑΠΟΔΟΧΩΝ"></activiti:value>
+          <activiti:value id="oligowri" name="ΟΛΙΓΟΩΡΗ"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="palio_upoloipo_4" name="ΧΩΡΗΓΗΘΕΙΣΕΣ ΑΔΕΙΕΣ ΕΤΟΥΣ ΜΕΧΡΙ ΣΗΜΕΡΑ" type="string" expression="${palio_upoloipo}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="neo_upoloipo_4" name="ΝΕΟ ΥΠΟΛΟΙΠΟ ΑΔΕΙΩΝ ΕΤΟΥΣ" type="string" expression="${neo_upoloipo}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_dieuthunti_4" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΔΙΕΥΘΥΝΤΗ" type="string" expression="${stoixeia_dieuthunti}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="egkrisi_4" name="ΚΑΤΑΣΤΑΣΗ ΑΙΤΗΣΗΣ" type="enum" expression="${egkrisi}" writable="false">
+          <activiti:value id="positive" name="ΑΠΟΔΟΧΗ"></activiti:value>
+          <activiti:value id="negative" name="ΑΠΟΡΙΨΗ"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow12" sourceRef="parallelgateway1" targetRef="usertask9"></sequenceFlow>
+    <sequenceFlow id="flow13" sourceRef="parallelgateway1" targetRef="usertask8"></sequenceFlow>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow14" sourceRef="usertask9" targetRef="endevent2"></sequenceFlow>
+    <endEvent id="endevent3" name="End"></endEvent>
+    <sequenceFlow id="flow15" sourceRef="usertask8" targetRef="endevent3"></sequenceFlow>
+    <userTask id="usertask10" name="Ενημέρωση Προϊσταμένου τμήματος" activiti:candidateGroups="proistamenos">
+      <extensionElements>
+        <activiti:formProperty id="tmima_5" name="ΤΜΗΜΑ" type="string" expression="${tmima}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_upallilou_5" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ" type="string" expression="${stoixeia_upallilou}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="meres_5" name="ΑΡΙΘΜΟΣ ΗΜΕΡΩΝ ΑΔΕΙΑΣ" type="string" expression="${meres}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="apo_5" name="ΗΜΕΡΟΜΗΝΙΑ ΕΝΑΡΞΗΣ ΑΔΕΙΑΣ" type="date" expression="${apo}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eos_5" name="ΗΜΕΡΟΜΗΝΙΑ ΛΗΞΗΣ ΑΔΕΙΑΣ" type="date" expression="${eos}" datePattern="dd-MMM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eidos_5" name="ΕΙΔΟΣ ΑΔΕΙΑΣ" type="enum" expression="${eidos}" writable="false">
+          <activiti:value id="anarrwtiki" name="ΑΝΑΡΡΩΤΙΚΗ"></activiti:value>
+          <activiti:value id="ekpaideutiki" name="ΕΚΠΑΙΔΕΥΤΙΚΗ"></activiti:value>
+          <activiti:value id="repo" name="ΡΕΠΟ"></activiti:value>
+          <activiti:value id="kuisis" name="ΚΥΗΣΗΣ"></activiti:value>
+          <activiti:value id="epistimoniki" name="ΕΠΙΣΤΗΜΟΝΙΚΗ"></activiti:value>
+          <activiti:value id="anef" name="ΑΝΕΥ ΑΠΟΔΟΧΩΝ"></activiti:value>
+          <activiti:value id="oligowri" name="ΟΛΙΓΟΩΡΗ"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="palio_upoloipo_5" name="ΧΩΡΗΓΗΘΕΙΣΕΣ ΑΔΕΙΕΣ ΕΤΟΥΣ ΜΕΧΡΙ ΣΗΜΕΡΑ" type="string" expression="${palio_upoloipo}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="neo_upoloipo_5" name="ΝΕΟ ΥΠΟΛΟΙΠΟ ΑΔΕΙΩΝ ΕΤΟΥΣ" type="string" expression="${neo_upoloipo}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="stoixeia_dieuthunti_5" name="ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΔΙΕΥΘΥΝΤΗ" type="string" expression="${stoixeia_dieuthunti}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="egkrisi_5" name="ΚΑΤΑΣΤΑΣΗ ΑΙΤΗΣΗΣ" type="enum" expression="${egkrisi}" writable="false">
+          <activiti:value id="positive" name="ΑΠΟΔΟΧΗ"></activiti:value>
+          <activiti:value id="negative" name="ΑΠΟΡΙΨΗ"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <endEvent id="endevent4" name="End"></endEvent>
+    <sequenceFlow id="flow16" sourceRef="usertask10" targetRef="endevent4"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_KY_D3_1">
+    <bpmndi:BPMNPlane bpmnElement="KY_D3_1" id="BPMNPlane_KY_D3_1">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="100.0" y="150.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="81.0" width="105.0" x="170.0" y="127.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="471.0" y="147.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask7" id="BPMNShape_usertask7">
+        <omgdc:Bounds height="81.0" width="105.0" x="310.0" y="127.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway1" id="BPMNShape_parallelgateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="471.0" y="240.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask8" id="BPMNShape_usertask8">
+        <omgdc:Bounds height="81.0" width="105.0" x="530.0" y="310.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask9" id="BPMNShape_usertask9">
+        <omgdc:Bounds height="81.0" width="105.0" x="350.0" y="310.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="385.0" y="420.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="565.0" y="420.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask10" id="BPMNShape_usertask10">
+        <omgdc:Bounds height="81.0" width="105.0" x="565.0" y="127.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent4" id="BPMNShape_endevent4">
+        <omgdc:Bounds height="35.0" width="35.0" x="715.0" y="150.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="135.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="170.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="511.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="565.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="275.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="310.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="415.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="471.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="491.0" y="187.0"></omgdi:waypoint>
+        <omgdi:waypoint x="491.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="471.0" y="260.0"></omgdi:waypoint>
+        <omgdi:waypoint x="401.0" y="260.0"></omgdi:waypoint>
+        <omgdi:waypoint x="402.0" y="310.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="511.0" y="260.0"></omgdi:waypoint>
+        <omgdi:waypoint x="582.0" y="260.0"></omgdi:waypoint>
+        <omgdi:waypoint x="582.0" y="310.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="402.0" y="391.0"></omgdi:waypoint>
+        <omgdi:waypoint x="402.0" y="420.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="582.0" y="391.0"></omgdi:waypoint>
+        <omgdi:waypoint x="582.0" y="420.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
+        <omgdi:waypoint x="670.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="715.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
